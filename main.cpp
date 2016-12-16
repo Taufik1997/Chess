@@ -8,7 +8,7 @@
 #include "bishop.hpp"
 #include "rook.hpp"
 #include "pawn.hpp"
-
+#include <fstream>
 using namespace std;
 
 Piece*** crearTablero(int rows, int cols);
@@ -22,11 +22,64 @@ int main(int argc, char const *argv[]){
 	const int ROWS = 8;
 	const int COLS = 8;
 	Piece*** tablero = crearTablero(ROWS,COLS);
+	string ficha;
+	ifstream man;
+	man.open("board.txt");
+	while(!man.eof()){
+		for (int i = 0; i < 8; ++i)
+		{
+			for (int j = 0; j < 8; ++j)
+			{
+				getline(man,ficha,' ');
+				if(ficha == "-"){
+					tablero[i][j] = NULL;
+				}
+				if(ficha == "p"){
+					tablero[i][j] = new Pawn('p',i,j);
+				}
+				if(ficha == "P"){
+					tablero[i][j] = new Pawn('P',i,j);
+				}
+				if(ficha == "t"){
+					tablero[i][j] = new Rook('t',i,j);
+				}
+				if(ficha == "T"){
+					tablero[i][j] = new Rook('T',i,j);
+				}
+				if(ficha == "a"){
+					tablero[i][j] = new Bishop('t',i,j);
+				}
+				if(ficha == "A"){
+					tablero[i][j] = new Bishop('T',i,j);
+				}
+				if(ficha == "q"){
+					tablero[i][j] = new Queen('q',i,j);
+				}
+				if(ficha == "Q"){
+					tablero[i][j] = new Queen('Q',i,j);
+				}
+				if(ficha == "r"){
+					tablero[i][j] = new King('k',i,j);
+				}
+				if(ficha == "R"){
+					tablero[i][j] = new King('K',i,j);
+				}
+				if(ficha == "c"){
+					tablero[i][j] = new Knight('k',i,j);
+				}
+				if(ficha == "C"){
+					tablero[i][j] = new Knight('K',i,j);
+				}
 
+			}
+		}
+		
+	} //Carga el tablero al programa, por cada pieza se valida cual es del texto y despues la importa a la matriz.
+	ofstream file;
 	string nombre1,nombre2;
-	cout<<"Jugador1 ingrese su nombre: "<<endl;
+	cout<<"Jugador 1 ingrese su nombre: "<<endl;
 	cin>>nombre1;
-	cout<<"Jugador2 ingrese su nombre: "<<endl;
+	cout<<"Jugador 2 ingrese su nombre: "<<endl;
 	cin>>nombre2;
 	int turno=0;
 	bool gano=false;
@@ -38,19 +91,27 @@ int main(int argc, char const *argv[]){
 		int x=0,y=0,x1=0,y1=0;
 		if (turno % 2 == 1) {
 			while(!valid){//ciclo de validacion
-				cout<<"Turno de: "<<nombre1<<endl;
-				cout<<"Ingrese columna de la pieza que desea mover: ";
-				cin>>x;
-				x--;
-				cout<<"Ingrese fila de la pieza que desea mover: ";
-				cin >> coordenada1;
-				y = charToInt(coordenada1);
-				cout<<"Ingrese columna a la desea mover la pieza: ";
-				cin>>x1;
-				x1--;
-				cout<<"Ingrese fila a la desea mover la pieza: : ";
-				cin >> coordenada2;
-				y1 = charToInt(coordenada2);
+				do{
+					cout<<"Turno de: "<<nombre1<<endl;
+					cout<<"Ingrese columna de la pieza que desea mover: ";
+					cin>>x;
+					x--;
+				}while(x<9 && x<0);//Validacion que no se salga de rango
+				do{
+					cout<<"Ingrese fila de la pieza que desea mover: ";
+					cin >> coordenada1;
+					y = charToInt(coordenada1);
+				}while(y<9 && y<0);//Validacion que no se salga de rango
+				do{
+					cout<<"Ingrese columna a donde la desea mover la pieza: ";//Falta donde
+					cin>>x1;
+					x1--;
+				}while(x1<9 && x1<0);//Validacion que no se salga de rango
+				do{
+					cout<<"Ingrese fila a donde la desea mover la pieza: : ";//Falta donde
+					cin >> coordenada2;
+					y1 = charToInt(coordenada2);
+				}while(y1<9 && y1<0);//Validacion que no se salga de rango
 				Position pos(x1,y1);
 				if (tablero[y][x]->getColor()=='B' && tablero[y][x] != NULL){//validacion de mover
 					if(tablero[y][x]->moveTo(tablero,pos))
@@ -58,26 +119,49 @@ int main(int argc, char const *argv[]){
 					else
 						valid = false;
 				}else{
-					cerr << "No se puede mover las piezas del juagdor opuesto" << endl;
+					cerr << "No se puede mover las piezas del jugador opuesto" << endl;//Jugador escrito mal
 				}
+				file.open("board.txt");
+				for (int i = 0; i < 8; ++i){
+					for (int j = 0; j < 8; ++j)	{
+						if(tablero[i][j] != NULL)
+						{
+							file << tablero[i][j]->toString() << " ";
+						}
+						else
+						{
+							file << "- ";
+						}
+					}
+					file<<endl;
+				}
+				file.close();
+
 			}
 
 		}else{
 			while(!valid){//ciclo de validacion
-				cout<<"Turno de: "<<nombre2<<endl;
-				cout<<"Ingrese columna de la pieza que desea mover: ";
-				cin>>x;
-				x--;
-				cout<<"Ingrese fila de la pieza que desea mover: ";
-				cin >> coordenada1;
-				y = charToInt(coordenada1);
-				cout<<"Ingrese columna a la desea mover la pieza: ";
-				cin>>x1;
-				x1--;
-				cout<<"Ingrese fila a la desea mover la pieza: : ";
-				cin >> coordenada2;
-				y1 = charToInt(coordenada2);
-
+				do{
+					cout<<"Turno de: "<<nombre2<<endl;
+					cout<<"Ingrese columna de la pieza que desea mover: ";
+					cin>>x;
+					x--;
+				}while(x<9 && x<0);//Validacion que no se salga de rango
+				do{
+					cout<<"Ingrese fila de la pieza que desea mover: ";
+					cin >> coordenada1;
+					y = charToInt(coordenada1);
+				}while(y<9 && y<0);//Validacion que no se salga de rango
+				do{
+					cout<<"Ingrese columna a donde la desea mover la pieza: ";//Falta donde
+					cin>>x1;
+					x1--;
+				}while(x1<9 && x1<0);//Validacion que no se salga de rango
+				do{
+					cout<<"Ingrese fila a donde la desea mover la pieza: : ";//Falta donde
+					cin >> coordenada2;
+					y1 = charToInt(coordenada2);
+				}while(y1<9 && y1<0);//Validacion que no se salga de rango
 				Position pos(x1,y1);
 				if (tablero[y][x]->getColor()=='N' && tablero[y][x] != NULL){//validacion de mover
 					if(tablero[y][x]->moveTo(tablero,pos))
@@ -87,6 +171,21 @@ int main(int argc, char const *argv[]){
 				}else{
 					cerr << "No se puede mover las piezas del jugador opuesto" << endl;
 				}
+				file.open("board.txt");
+				for (int i = 0; i < 8; ++i){
+					for (int j = 0; j < 8; ++j)	{
+						if(tablero[i][j] != NULL)
+						{
+							file << tablero[i][j]->toString() << " ";
+						}
+						else
+						{
+							file << "- ";
+						}
+					}
+					file<<endl;
+				}
+				file.close();
 			}
 		}
 		gano = ganar(tablero);
@@ -120,9 +219,13 @@ void imprimir(Piece*** tablero){//imprimir tablero
 	for (int i = 0; i < 8; ++i){
 		for (int j = 0; j < 8; ++j)	{
 			if(tablero[i][j] != NULL)
+			{
 				cout << "[" << tablero[i][j]->toString() << "]";
+			}
 			else
+			{
 				cout << "[ ]";
+			}
 		}
 		cout << letras[i] << endl;
 	}

@@ -10,6 +10,7 @@ using std::cout;
 
 Bishop::Bishop(char color,int X,int Y):Piece(color,X,Y){
 	//Se llama al constructor de la clase Piece
+
 }
 bool Bishop::isValidMove(Piece***board, Position destiny){
 
@@ -33,17 +34,17 @@ bool Bishop::isValidMove(Piece***board, Position destiny){
 				contadorY=this->position.getY();
 				contadorX=this->position.getY();
 				
-
-				while(true){
+				bool val = true;//Validacion para que el bishop se mueva, antes no servia sin el boolean porque el break no servia
+				while(val){
 					if (board[contadorY][contadorX] == NULL){
 						contadorY--;
 						contadorX--;
 
 					} else if (board[contadorY][contadorX]!=NULL && board[contadorY][contadorX]->getColor()=='B'){
-						return false;
+						val = false;
 					}
 					if(contadorX == destiny.getX() || contadorY==destiny.getY()){
-						break;
+						val = false;
 					}
 
 
@@ -57,18 +58,18 @@ bool Bishop::isValidMove(Piece***board, Position destiny){
 				contadorY=this->position.getY();
 				contadorX=this->position.getY();
 				
-
-				while(true){
+				bool val = true;//Validacion para que el bishop se mueva, antes no servia sin el boolean porque el break no servia
+				while(val){
 					
 					if (board[contadorY][contadorX] == NULL){
 						contadorY--;
 						contadorX++;
 
 					} else if (board[contadorY][contadorX]!=NULL && board[contadorY][contadorX]->getColor()=='B'){
-						return false;
+						val = false;
 					}
 					if(contadorX == destiny.getX() || contadorY==destiny.getY()){
-						break;
+						val = false;
 					}
 				}
 				return true;
@@ -78,18 +79,18 @@ bool Bishop::isValidMove(Piece***board, Position destiny){
 				contadorY=this->position.getY();
 				contadorX=this->position.getY();
 				
-
-				while(true){
+				bool val = true;//Validacion para que el bishop se mueva, antes no servia sin el boolean porque el break no servia
+				while(val){
 					
 					if (board[contadorY][contadorX] == NULL){
 						contadorY++;
 						contadorX--;
 
 					} else if (board[contadorY][contadorX]!=NULL && board[contadorY][contadorX]->getColor()=='B'){
-						return false;
+						val = false;
 					}
 					if(contadorX == destiny.getX() || contadorY==destiny.getY()){
-						break;
+						val = false;
 					}
 				}
 				return true;
@@ -99,18 +100,18 @@ bool Bishop::isValidMove(Piece***board, Position destiny){
 				contadorY=this->position.getY();
 				contadorX=this->position.getY();
 				
-
-				while(true){
+				bool val = true;//Validacion para que el bishop se mueva, antes no servia sin el boolean porque el break no servia
+				while(val){
 					
 					if (board[contadorY][contadorX] == NULL){
 						contadorY++;
 						contadorX++;
 
 					} else if (board[contadorY][contadorX]!=NULL && board[contadorY][contadorX]->getColor()=='B'){
-						return false;
+						val = false;
 					}
 					if(contadorX == destiny.getX() || contadorY==destiny.getY()){
-						break;
+						val = false;
 					}
 
 				}
@@ -125,18 +126,18 @@ bool Bishop::isValidMove(Piece***board, Position destiny){
 				contadorX=this->position.getY();
 				
 
-
-				while(true){
+				bool val = true;//Validacion para que el bishop se mueva, antes no servia sin el boolean porque el break no servia
+				while(val){
 					
 					if (board[contadorY][contadorX] == NULL){
 						contadorY--;
 						contadorX--;
 
 					} else if (board[contadorY][contadorX]!=NULL && board[contadorY][contadorX]->getColor()=='N'){
-						return false;
+						val =  false;
 					}
 					if(contadorX == destiny.getX() || contadorY==destiny.getY()){
-						break;
+						val = false;
 					}
 
 				}
@@ -149,8 +150,8 @@ bool Bishop::isValidMove(Piece***board, Position destiny){
 				contadorY=this->position.getY();
 				contadorX=this->position.getY();
 
-				
-				while(true){
+				bool val = true;//Validacion para que el bishop se mueva, antes no servia sin el boolean porque el break no servia
+				while(val){
 					
 					
 					if (board[contadorY][contadorX] == NULL){
@@ -158,10 +159,10 @@ bool Bishop::isValidMove(Piece***board, Position destiny){
 						contadorX++;
 
 					} else if (board[contadorY][contadorX]!=NULL && board[contadorY][contadorX]->getColor()=='N'){
-						return false;
+						val = false;
 					}
 					if(contadorX == destiny.getX() || contadorY==destiny.getY()){
-						break;
+						val = false;
 					}
 
 				}
@@ -174,18 +175,18 @@ bool Bishop::isValidMove(Piece***board, Position destiny){
 				contadorX=this->position.getY();
 
 				
-
-				while(true){
+				bool val = true;//Validacion para que el bishop se mueva, antes no servia sin el boolean porque el break no servia
+				while(val){
 					
 					if (board[contadorY][contadorX] == NULL){
 						contadorY++;
 						contadorX--;
 
 					} else if (board[contadorY][contadorX]!=NULL && board[contadorY][contadorX]->getColor()=='N'){
-						return false;
+						val = false;
 					}
 					if(contadorX == destiny.getX() || contadorY==destiny.getY()){
-						break;
+						val = false;
 					}
 
 				}
@@ -197,18 +198,18 @@ bool Bishop::isValidMove(Piece***board, Position destiny){
 				contadorY=this->position.getY();
 				contadorX=this->position.getY();
 				
-
-				while(true){
+				bool val = true;//Validacion para que el bishop se mueva, antes no servia sin el boolean porque el break no servia
+				while(val){
 					
 					if (board[contadorY][contadorX] == NULL){
 						contadorY++;
 						contadorX++;
 
 					} else if (board[contadorY][contadorX]!=NULL && board[contadorY][contadorX]->getColor()=='N'){
-						return false;
+						val =  false;
 					}
 					if(contadorX == destiny.getX() || contadorY==destiny.getY()){
-						break;
+						val = false;
 					}
 
 				}
